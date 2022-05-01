@@ -61,6 +61,26 @@ class App extends React.Component {
     this.setState({debits: debits, accountBalance: balance})
   }
 
+  addCredit = (e) => {
+    e.preventDefault();
+
+    let { credits } = this.state;
+    let balance = this.state.accountBalance;
+    const description  = e.target[0].value
+    const amount  = Number(e.target[1].value)
+    const today = new Date();
+
+    //formatting to match other dates
+    const month = today.getMonth() + 1;
+    const date = today.getFullYear().toString() + "-" + month.toString() + "-" + today.getDate().toString();
+    
+    const newCredit = {description, amount, date}
+    balance = balance + amount;
+    credits = [...credits, newCredit]
+    this.setState({credits: credits, accountBalance: balance})
+    
+  }
+
   render() {
     return (
       <div className="App">
